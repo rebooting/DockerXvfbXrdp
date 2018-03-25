@@ -11,7 +11,7 @@ RUN apt-get install -y code libasound2
 
 COPY settings/keyboard /etc/default/keyboard
 
-RUN apt-get install -y xrdp 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xrdp 
 
 
 
