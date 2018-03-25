@@ -1,0 +1,25 @@
+#!/bin/bash
+chmod 755 /etc/xrdp/xrdp.ini
+export X11VNC_IDLE_TIMEOUT=80000
+
+XVFB_WHD=${XVFB_WHD:-1280x720x16}
+# Start Xvfb
+Xvfb :99 -ac -screen 0 $XVFB_WHD -listen tcp &
+xvfb=$!
+
+export DISPLAY=:99 
+ 
+fvwm &
+fvwm=$!
+
+/etc/init.d/xrdp start
+x11vnc -repeat -forever -rfbport 7800 &
+xset r rate 200 40
+
+echo "PID:"
+echo $fvwm
+
+echo "Log in using VNC"
+wait $fvwm
+echo "***********************EXIT****************************"
+
