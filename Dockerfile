@@ -1,5 +1,8 @@
 FROM rebooting/xvfbsid:latest
-RUN apt-get install -y xrdp net-tools
+RUN apt-get install -y xrdp 
+
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 RUN mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
 RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
