@@ -1,5 +1,5 @@
 FROM rebooting/xvfbsid:latest
-COPY ./settings/keyboard /etc/default/keyboard
+COPY settings/keyboard /etc/default/keyboard
 RUN apt-get install -y xrdp 
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
