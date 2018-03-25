@@ -1,6 +1,4 @@
 FROM rebooting/xvfbsid:latest
-COPY settings/keyboard /etc/default/keyboard
-RUN apt-get install -y xrdp 
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 RUN mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -9,6 +7,12 @@ RUN apt-get update
 
 RUN apt-get install -y libboost-all-dev g++ git make zlib1g-dev libboost-all-dev libssl-dev cmake clang++-3.8 libcpprest-dev 
 RUN apt-get install -y code libasound2
+
+
+COPY settings/keyboard /etc/default/keyboard
+
+RUN apt-get install -y xrdp 
+
 
 
 WORKDIR /buildhome
