@@ -1,8 +1,8 @@
 #!/bin/bash
-chmod 755 /etc/xrdp/xrdp.ini
+
 export X11VNC_IDLE_TIMEOUT=80000
 
-XVFB_WHD=${XVFB_WHD:-1280x720x16}
+XVFB_WHD=${XVFB_WHD:-1440x900x16}
 # Start Xvfb
 Xvfb :99 -ac -screen 0 $XVFB_WHD -listen tcp &
 xvfb=$!
@@ -12,8 +12,18 @@ export DISPLAY=:99
 fvwm &
 fvwm=$!
 
-/etc/init.d/xrdp start
-x11vnc -repeat -forever -rfbport 7800 &
+#/etc/init.d/xrdp start
+if [ -n $VNCPASS ];then
+    echo "setting password "$VNCPASS
+    x11vnc -storepasswd $VNCPASS ~/.x11vnc/passwd
+    echo "Done*****"
+    x11vnc -rfbauth ~/.x11vnc/passwd   --noxrecord -repeat -forever -rfbport 7800 &
+else
+    echo "not setting password"
+    x11vnc --noxrecord -repeat -forever -rfbport 7800 &
+fi
+
+
 xset r rate 200 40
 
 echo "PID:"

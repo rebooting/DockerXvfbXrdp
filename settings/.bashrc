@@ -1,1 +1,1 @@
-alias vscode='code --user-data-dir /buildhome/.code'
+alias vscode='code --user-data-dir /root/.code'
